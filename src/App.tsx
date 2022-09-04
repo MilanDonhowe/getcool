@@ -60,7 +60,10 @@ function App() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLoadingMsg("Loading cooling center locations...");
-        fetch("/data/locations.csv")
+        // fix file loading on gh pages
+        let prefix = ''
+        if (process.env.REACT_APP_GITHUB) prefix = process.env.REACT_APP_GITHUB
+        fetch(prefix + "/data/locations.csv")
           .then((res) =>
             res.text().then((text) => {
               // Parse CSV
